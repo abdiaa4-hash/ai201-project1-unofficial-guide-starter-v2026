@@ -54,6 +54,22 @@ At least 5 of 5 sampled chunks read as one complete thought, with no sentence cu
 **Why this target:**
 The campus_life corpus is made of short, self-contained student posts, and the chunker preserved each document as a single chunk in this run (88 documents, 88 chunks). Since the source documents are already concise and focused on one topic, the sampled chunks read cleanly as complete thoughts without awkward mid-sentence breaks.
 
+> **Revised in unit 2:** At least 4 of 5 sampled chunks contain no more than
+> one distinct sub-topic (e.g. one fact about a dorm's bathroom layout, not
+> bathroom + laundry + noise all in one chunk).
+>
+> **Why revised:** "Reads as one complete thought" turned out to be a
+> judgment call I couldn't reliably repeat. Looking back at my own Chunk 5
+> (Innisfree Hall), it covers bathroom layout, AC, laundry cost, and noise
+> all in one chunk — I scored it "complete" the first time because each
+> sentence was grammatically whole, but on a second look I'd just as easily
+> call it "too many topics crammed into one chunk." The original criterion
+> was measuring sentence-level fragmentation, which my chunker structurally
+> can't produce (it never splits mid-sentence), so it was never actually at
+> risk of failing — it wasn't testing anything. The revised version asks
+> about topic count instead, which is something I can count the same way
+> twice.
+
 ---
 
 ## 5. Source attribution is accurate, not just present
