@@ -1,0 +1,9 @@
+  (best distance 0.148, cutoff 0.6)
+
+It usually takes two to three days to get a hold on a checked-out book at the library. 
+
+Source: `admin_library_holds.txt`
+
+Sources retrieved: admin_library_holds.txt, advising_registration.txt, course_hist_118_workload.txt, money_textbooks.txt, study_group_rooms.txt
+
+1 model calls this session, 566 tokens (532 in, 34 out)

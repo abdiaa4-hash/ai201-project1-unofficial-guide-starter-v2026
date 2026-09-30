@@ -1,0 +1,10 @@
+  (best distance 0.265, cutoff 0.6)
+
+The wait for a first counseling session is usually three or four days. 
+
+Source: health_center.txt
+
+Sources retrieved: advising_registration.txt, dining_halden_hall_followup.txt, dining_kestrel_commons_followup.txt, dining_the_ridgeway_cafe_followup.txt, health_center.txt
+
+1 model calls this session, 654 tokens (631 in, 23 out)
+libc++abi: terminating due to uncaught exception of type std::__1::system_error: recursive_mutex lock failed: Invalid argument

@@ -1,0 +1,7 @@
+  (best distance 0.173, cutoff 0.6)
+
+Students say the wait at Verrill Street Grill is up to 30 minutes on Friday evenings (*dining_verrill_street_grill.txt* and *dining_verrill_street_grill_followup.txt*).
+
+Sources retrieved: dining_halden_hall_followup.txt, dining_north_kitchen_followup.txt, dining_the_ridgeway_cafe_followup.txt, dining_verrill_street_grill.txt, dining_verrill_street_grill_followup.txt
+
+1 model calls this session, 745 tokens (694 in, 51 out)
