@@ -1,0 +1,199 @@
+# Run log — after-scorer
+
+- Produced by: `run_eval.py::main`
+- Retrieval: `store.py::search`, chunks from `chunker.py::split_documents`
+- Corpus: `campus_life` (index variant `default`)
+- top-k: 5 · relevance cutoff: 0.6
+- Runs per question: 3, caching off
+- When: 2026-09-30 17:56
+
+This table is one row per QUESTION. The run log your README asks for is
+one row per CRITERION, so aggregate these into it — criterion 1 is how many
+of your questions had the answer in the retrieved chunks, and so on.
+
+| Question | Run 1 | Run 2 | Run 3 |
+|---|---|---|---|
+| How far in advance should I book an advising appointment before registration? | pass | pass | pass |
+| Is the housing lottery based on pure random chance? | pass | pass | pass |
+| How long do students say the wait is at Verrill Street Grill on Friday evenings? | pass | pass | pass |
+| How long does it usually take to get a book hold at the library? | pass | pass | pass |
+| How long is the wait for a first counseling session at the health center? | pass | pass | pass |
+
+---
+
+## The relevance gate on out-of-corpus questions
+
+Produced by `run_eval.py::check_out_of_scope`, cutoff 0.6. Refused 5 of 5.
+
+Retrieval is deterministic and the gate is a comparison against a
+fixed number, so these do not vary between runs — one pass over the
+list is the whole measurement.
+
+| Out-of-scope question | Best distance | Gate |
+|---|---|---|
+| What is the capital of Mongolia? | 0.825 | refused |
+| How do I change the oil in a diesel engine? | 0.934 | refused |
+| Who won the 1994 World Cup? | 0.886 | refused |
+| What is the recommended dosage of ibuprofen for a headache? | 0.844 | refused |
+| How do I write a for loop in Rust? | 0.896 | refused |
+
+---
+
+## Real output
+
+This is what the system actually produced. Paste the relevant parts
+into your README underneath the table — the rubric asks for real
+output as text, not a description of it.
+
+### How far in advance should I book an advising appointment before registration? — run 1
+
+- Best distance: 0.3657 (passed the gate)
+- Sources retrieved: admin_declaring_a_major.txt, admin_library_holds.txt, advising_registration.txt, dining_verrill_street_grill_followup.txt, health_center.txt
+
+```
+You should book your advising appointment two weeks out. 
+
+Source: advising_registration.txt
+```
+
+### How far in advance should I book an advising appointment before registration? — run 2
+
+- Best distance: 0.3657 (passed the gate)
+- Sources retrieved: admin_declaring_a_major.txt, admin_library_holds.txt, advising_registration.txt, dining_verrill_street_grill_followup.txt, health_center.txt
+
+```
+You should book your advising appointment two weeks out. 
+
+Source: advising_registration.txt
+```
+
+### How far in advance should I book an advising appointment before registration? — run 3
+
+- Best distance: 0.3657 (passed the gate)
+- Sources retrieved: admin_declaring_a_major.txt, admin_library_holds.txt, advising_registration.txt, dining_verrill_street_grill_followup.txt, health_center.txt
+
+```
+You should book your advising appointment two weeks out. 
+
+Source: advising_registration.txt
+```
+
+### Is the housing lottery based on pure random chance? — run 1
+
+- Best distance: 0.2776 (passed the gate)
+- Sources retrieved: admin_housing_lottery.txt, admin_parking_permits.txt, advising_registration.txt, housing_morrow_house.txt, housing_tamsin_court.txt
+
+```
+No, the housing lottery is not entirely based on random chance. Rising sophomores have a random number drawn, but juniors and seniors are ordered first by accumulated credit hours with random tie-breaks only used for ties (*admin_housing_lottery.txt*).
+```
+
+### Is the housing lottery based on pure random chance? — run 2
+
+- Best distance: 0.2776 (passed the gate)
+- Sources retrieved: admin_housing_lottery.txt, admin_parking_permits.txt, advising_registration.txt, housing_morrow_house.txt, housing_tamsin_court.txt
+
+```
+No, the housing lottery is not entirely based on pure random chance. Rising sophomores receive a randomly drawn number, but juniors and seniors are ordered by accumulated credit hours first, with random tie-breaking used only as a tie-breaker (*admin_housing_lottery.txt*).
+```
+
+### Is the housing lottery based on pure random chance? — run 3
+
+- Best distance: 0.2776 (passed the gate)
+- Sources retrieved: admin_housing_lottery.txt, admin_parking_permits.txt, advising_registration.txt, housing_morrow_house.txt, housing_tamsin_court.txt
+
+```
+No, the housing lottery is not based on pure random chance. Rising sophomores get a number drawn at random, but juniors and seniors are ordered by accumulated credit hours first, with random selection used only as a tie-breaker (admin_housing_lottery.txt).
+```
+
+### How long do students say the wait is at Verrill Street Grill on Friday evenings? — run 1
+
+- Best distance: 0.1729 (passed the gate)
+- Sources retrieved: dining_halden_hall_followup.txt, dining_north_kitchen_followup.txt, dining_the_ridgeway_cafe_followup.txt, dining_verrill_street_grill.txt, dining_verrill_street_grill_followup.txt
+
+```
+Students say the wait at Verrill Street Grill is up to 30 minutes on Friday evenings (*dining_verrill_street_grill.txt* and *dining_verrill_street_grill_followup.txt*).
+```
+
+### How long do students say the wait is at Verrill Street Grill on Friday evenings? — run 2
+
+- Best distance: 0.1729 (passed the gate)
+- Sources retrieved: dining_halden_hall_followup.txt, dining_north_kitchen_followup.txt, dining_the_ridgeway_cafe_followup.txt, dining_verrill_street_grill.txt, dining_verrill_street_grill_followup.txt
+
+```
+Students say the wait is up to 30 minutes on Friday evenings at Verrill Street Grill. 
+
+Source: `dining_verrill_street_grill.txt` (also mentioned in `dining_verrill_street_grill_followup.txt`)
+```
+
+### How long do students say the wait is at Verrill Street Grill on Friday evenings? — run 3
+
+- Best distance: 0.1729 (passed the gate)
+- Sources retrieved: dining_halden_hall_followup.txt, dining_north_kitchen_followup.txt, dining_the_ridgeway_cafe_followup.txt, dining_verrill_street_grill.txt, dining_verrill_street_grill_followup.txt
+
+```
+Students say the wait is up to 30 minutes on Friday evenings at Verrill Street Grill. 
+
+Source: `dining_verrill_street_grill.txt` (and also mentioned in `dining_verrill_street_grill_followup.txt`).
+```
+
+### How long does it usually take to get a book hold at the library? — run 1
+
+- Best distance: 0.1483 (passed the gate)
+- Sources retrieved: admin_library_holds.txt, advising_registration.txt, course_hist_118_workload.txt, money_textbooks.txt, study_group_rooms.txt
+
+```
+It usually takes two to three days to get a hold on a checked-out book. (Source: admin_library_holds.txt)
+```
+
+### How long does it usually take to get a book hold at the library? — run 2
+
+- Best distance: 0.1483 (passed the gate)
+- Sources retrieved: admin_library_holds.txt, advising_registration.txt, course_hist_118_workload.txt, money_textbooks.txt, study_group_rooms.txt
+
+```
+It usually takes two to three days to get a hold on a checked-out book. 
+
+Source: admin_library_holds.txt
+```
+
+### How long does it usually take to get a book hold at the library? — run 3
+
+- Best distance: 0.1483 (passed the gate)
+- Sources retrieved: admin_library_holds.txt, advising_registration.txt, course_hist_118_workload.txt, money_textbooks.txt, study_group_rooms.txt
+
+```
+It usually takes two to three days to get a hold on a checked-out book at the library. 
+
+Source: admin_library_holds.txt
+```
+
+### How long is the wait for a first counseling session at the health center? — run 1
+
+- Best distance: 0.2648 (passed the gate)
+- Sources retrieved: advising_registration.txt, dining_halden_hall_followup.txt, dining_kestrel_commons_followup.txt, dining_the_ridgeway_cafe_followup.txt, health_center.txt
+
+```
+The wait for a first counseling session is usually three or four days. 
+
+Source: health_center.txt
+```
+
+### How long is the wait for a first counseling session at the health center? — run 2
+
+- Best distance: 0.2648 (passed the gate)
+- Sources retrieved: advising_registration.txt, dining_halden_hall_followup.txt, dining_kestrel_commons_followup.txt, dining_the_ridgeway_cafe_followup.txt, health_center.txt
+
+```
+The wait for a first counseling session is usually three or four days. 
+
+Source: health_center.txt
+```
+
+### How long is the wait for a first counseling session at the health center? — run 3
+
+- Best distance: 0.2648 (passed the gate)
+- Sources retrieved: advising_registration.txt, dining_halden_hall_followup.txt, dining_kestrel_commons_followup.txt, dining_the_ridgeway_cafe_followup.txt, health_center.txt
+
+```
+The wait for a first counseling session is usually three or four days (health_center.txt).
+```
