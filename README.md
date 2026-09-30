@@ -97,3 +97,63 @@ source.
    role was pointing out that my criterion 4 draft (5 of 5, no fragmentation)
    didn't address a different question (multi-topic chunks like Innisfree
    Hall), which I decided to accept as a known trade-off rather than fix.
+
+## Unit 2 — Testing Against My Criteria
+
+### Run log (aggregated by criterion, 3 runs each)
+
+| Criterion | Target | Result | Verdict |
+|---|---|---|---|
+| 1. Retrieved chunks contain the answer | 4 of 5 questions | 5 of 5 questions, all 3 runs | **Met** |
+| 2. Every answer names a source | 5 of 5 | 5 of 5, all 3 runs (every sample output includes a `Source:` line) | **Met** |
+| 3. Relevance gate stops out-of-corpus questions | 4 of 5 | 5 of 5 refused, consistently (retrieval is deterministic, so this doesn't vary by run) | **Met** |
+| 4. Chunk completeness | 5 of 5 sampled chunks | 5 of 5 by my original wording, but see revision below | **Met, but the criterion itself was flawed — see below** |
+| 5. Source attribution is accurate | 4 of 5 | 5 of 5, by scorer.py's substring-match rule | **Met** |
+
+Raw evidence: `results/run_2026-09-30_1748_before.md` (initial run, before `scorer.py`
+existed — verdicts blank, judged by eye) and
+`results/run_2026-09-30_1756_after-scorer.md` (same questions, same corpus,
+after `scorer.py` existed — automatic verdicts, 15 of 15 pass, 5 of 5 refused).
+
+### Diagnosis
+
+Nothing failed. Given how deliberately simple my corpus is (88 short,
+single-topic posts, one document = one chunk, each of my 5 test questions
+maps to a document that clearly and uniquely covers it), a clean pass across
+all 5 criteria isn't surprising — my questions were never a hard test of the
+pipeline. If I wanted to find an actual weakness, I'd need to write harder
+test questions: ones where the answer is split across two documents, or
+where two documents use similar language for different facts.
+
+### The one thing I checked and changed: was criterion 4 actually measuring anything?
+
+Before building `scorer.py`, the only unverified judgment left in my criteria
+was criterion 4 ("at least 5 of 5 sampled chunks read as one complete
+thought, with no sentence cut off at either end"). I called all 5 of my
+original sample chunks a pass in unit 1. Revisiting it in unit 2, I noticed
+the criterion was actually unfalsifiable for my system: because I chunk by
+whole document rather than by character count, no chunk can ever be cut off
+mid-sentence — the wording I chose could never fail, regardless of whether
+the chunks were actually good.
+
+**Before:** "At least 5 of 5 sampled chunks read as one complete thought,
+with no sentence cut off at either end." — guaranteed to pass by construction,
+so it wasn't really testing my chunking decision.
+
+**After (revised in `criteria.md`):** "At least 4 of 5 sampled chunks contain
+no more than one distinct sub-topic." This is still a judgment call, but it's
+a more honest one — it can actually fail. Re-checking my 5 sample chunks
+against this version: 4 of 5 pass (add/drop deadline, BIOL 160, HIST 118
+workload, and the Pellew Dining Hall wait time are each single-topic).
+Chunk 5 (Innisfree Hall) fails it — it covers bathroom layout, AC, laundry
+cost, and noise all in one chunk. So the revised criterion is **met at
+exactly 4 of 5**, which is a real, checkable result instead of a guaranteed
+pass.
+
+### What's still unmeasured
+
+I didn't stress-test the corpus with adversarial or ambiguous questions —
+all 5 of my test questions map cleanly to one obvious document each. A more
+honest test of criterion 1 would include at least one question whose answer
+requires combining facts from two different documents, which nothing in my
+current question set does.
